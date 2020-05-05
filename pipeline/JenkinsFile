@@ -7,9 +7,9 @@ pipeline{
         stage('test') {
             steps{
                 testt()
-                script {
-                    sonar.analyze()
-                }
+                
+                sh 'sonar.analyze()'
+                
             }
         }
 
