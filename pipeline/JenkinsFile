@@ -6,7 +6,8 @@ pipeline{
     stages{
         stage('test') {
             steps{
-                dockerUtils.createImage(1,2,3,4)
+                @Library('platform-team-shared-libs') _
+                createImage(1,2,3,4)
             }
         }
 
