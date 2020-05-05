@@ -1,11 +1,13 @@
 pipeline{
     agent any
-
+    libraries{
+        lib('platform-team-shared-libs')
+    }
     stages{
         stage('test') {
             steps{
                 testt()
-
+                analyze()
             }
         }
 
