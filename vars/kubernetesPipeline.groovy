@@ -9,30 +9,30 @@ def call() {
       stage('Continuous Integration'){
 
         steps {
-          echo 1;
+          echo "1";
         }
       }
 
       stage('Build Artifact'){
 		    steps{
-          echo 1; 
+          echo "2";
         }
       }
 
       stage('Update Docker Image TAG in DEV'){
 		    steps{
-          echo 1; 
+          echo "3";
         }
        } 
       stage('Deploy new version in DEV'){
 		    steps{
-          echo 1; 
+          echo "4";
         }
       }
 
 	  stage('Integration Tests'){
 		    steps{
-          echo 1; 
+          echo "5";
         }
 		}
     }
