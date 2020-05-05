@@ -1,4 +1,4 @@
-def createImage(appName,appProject,appVersion,isProd) {
+createImage(appName,appProject,appVersion,isProd) {
   withCredentials(bindings: [usernamePassword(credentialsId: 'acrcredentials', 
                                               passwordVariable: 'DOCKER_REGISTRY_PASSWORD', 
                                               usernameVariable: 'DOCKER_REGISTRY_USER')]) {

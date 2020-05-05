@@ -6,7 +6,6 @@ pipeline{
     stages{
         stage('test') {
             steps{
-                @Library('platform-team-shared-libs') _
                 createImage(1,2,3,4)
             }
         }
