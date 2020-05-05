@@ -1,4 +1,4 @@
-pipeline{
+/*pipeline{
     agent any
     libraries{
         lib('platform-team-shared-libs')
@@ -8,14 +8,16 @@ pipeline{
             steps{
                 testt()
                 
-            script{
-                dockerUtils.ttcall()
-            }
-                            
+                sh 'sonar.analyze()'
+                
             }
         }
 
 
     }
-}
+}*/
+testt()
 
+script{
+    dockerUtils.ttcall()
+}
