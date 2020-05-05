@@ -1,4 +1,4 @@
-def call() {
+def ttcall() {
   
   pipeline {
     agent any
