@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage('test') {
             steps{
-                testt
+                library('my-shared-library').com.mycorp.pipeline.Utils.call()
             }
         }
 
