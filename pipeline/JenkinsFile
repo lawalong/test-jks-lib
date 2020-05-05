@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage('test') {
             steps{
-                createImage(1,2,3,4)
+                testt
             }
         }
 
