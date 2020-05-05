@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage('test') {
             steps{
-                library('platform-team-shared-libs').com.mycorp.pipeline.Utils.call()
+                createImage(1,2,3,4)
             }
         }
 
