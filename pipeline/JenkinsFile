@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage('test') {
             steps{
-                library('my-shared-library').com.mycorp.pipeline.Utils.call()
+                library('platform-team-shared-libs').com.mycorp.pipeline.Utils.call()
             }
         }
 
