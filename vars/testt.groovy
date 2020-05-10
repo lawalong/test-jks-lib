@@ -1,5 +1,5 @@
-def call(String str) {
-    echo "hello world ${str}"
+def call() {
+    echo "hello world tt"
 }
 
 def saydiff() {
