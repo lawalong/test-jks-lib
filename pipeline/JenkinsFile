@@ -24,5 +24,7 @@ script{
 
 
 @Library('platform-team-shared-libs')
-testt("hehe")
+testt{
+    str = "hehe"
+}
 kubernetesPipeline()
