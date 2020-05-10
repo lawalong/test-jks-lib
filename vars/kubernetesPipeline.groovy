@@ -60,7 +60,7 @@ def call(Map params) {
             sh 'cd $WORKSPACE/${dockerFilePath}'
             script{                
                 dockerImages.each{
-                  echo $it['args']
+                  echo "${it['args']}"
                 }
             }
             
