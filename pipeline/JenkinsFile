@@ -22,9 +22,7 @@ script{
     dockerUtils.ttcall()
 }*/
 
-libraries{
-        lib('platform-team-shared-libs')
-}
 
+@Library('platform-team-shared-libs')
 testt("hehe")
 kubernetesPipeline()
