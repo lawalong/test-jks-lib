@@ -61,8 +61,10 @@ def call(Map params) {
             script{                
                 dockerImages.each{
                   echo "123 ${it['args']}"
-                  sh 'cd $WORKSPACE/${dockerFilePath}'
-                  sh 'docker build --build-arg REGISTRY=containerregistrydev.azurecr.io -t "${CONTAINERREGISTRY}/webjet/alertbot":$BUILD_NUMBER .'
+                  sh '''
+                  cd $WORKSPACE/${dockerFilePath}'
+                  docker build --build-arg REGISTRY=containerregistrydev.azurecr.io -t "${CONTAINERREGISTRY}/webjet/alertbot":$BUILD_NUMBER .
+                  '''
                 }
             }
             
