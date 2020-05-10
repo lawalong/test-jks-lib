@@ -52,7 +52,7 @@ def call(Map params) {
           steps{
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
 
-          
+          }
       }
       
       stage('build docker image') { // need update, for, image name
