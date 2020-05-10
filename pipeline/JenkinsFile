@@ -26,5 +26,5 @@ testt "abc22"
 kubernetesPipeline(
 
   repositoryBranch            : "master",
-  repositoryUrl               : "https://github.com/Webjet/Packages-Web.git"
+  repositoryUrl               : "https://github.com/Webjet/kube-alert-bot.git"
 )

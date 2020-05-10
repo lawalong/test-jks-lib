@@ -32,9 +32,10 @@ def call(Map params) {
   pipeline {
     agent any
     environment {
-        CONTAINERREGISTRY     = credentials('9bfddad9-c9b4-4f57-b6cc-283d0997c5b5')
+        CONTAINERREGISTRY         = credentials('9bfddad9-c9b4-4f57-b6cc-283d0997c5b5')
         CONTAINERREGISTRYUSERNAME = credentials('ac3722c7-104f-4835-8438-70042e18a846')
         CONTAINERREGISTRYPASSWORD = credentials('399bf241-b44f-4977-84c1-551792f726df')
+        def WORKSPACE=pwd()
     }
     stages{
       stage('checkout') {
@@ -48,6 +49,51 @@ def call(Map params) {
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
           }
       }
+      
+      stage('build docker image') { // need update, for, image name
+          steps{
+            sh(script: """
+                cd $WORKSPACE/src
+                docker build  -t "${CONTAINERREGISTRY}/webjet/kube-alert-bot":$BUILD_NUMBER .
+            """, returnStdout: true)
+          }
+      }
+
+      stage('push image') { // need update, image name
+            sh(script: """
+                docker push "${CONTAINERREGISTRY}/webjet/kube-alert-bot:${BUILD_NUMBER}"
+            """, returnStdout: true)
+      }
+
+      stage('deploy-kubernetes-dev'){  // need update parallel for loop, config file name
+            steps{
+                parallel(
+                    AU:{
+                        sh '''
+                            response=$(curl -s -X POST "http://kubebot.default/deploy/dev/bots/alertbot/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
+                            --data-binary "@$WORKSPACE/pipeline/dev-wjau.yaml" \
+                            -H 'Content-Type: application/yaml' \
+                            -H 'Expect:' \
+                            -D -)
+                            http_status=$(echo $response | grep HTTP | awk '{print $2}')
+                            if [ $http_status = 200 ]; then
+                                echo "Deployed"
+                            else
+                                echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
+                                exit 1
+                            fi      
+                        '''   
+                    },
+                    NZ:{
+                        sh '''
+                            echo "test path2"    
+                        ''' 
+                    }
+                )
+            }
+      }     
+
+
     }
   }
 
