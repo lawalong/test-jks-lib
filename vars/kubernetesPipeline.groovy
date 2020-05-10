@@ -51,13 +51,7 @@ def call(Map params) {
       stage('loging into container registry') {
           steps{
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
-              sh '''
-                dockerImages.each{
-                  echo it['imageName']
-                  echo it['args']
-                  }
-                '''
-              }
+
           
       }
       
