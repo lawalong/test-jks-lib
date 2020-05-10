@@ -26,6 +26,8 @@ def call(Map params) {
 
   repositoryBranch            = params.repositoryBranch
   repositoryUrl               = params.repositoryUrl
+  dockerFilePath
+
 
 
   
@@ -54,7 +56,7 @@ def call(Map params) {
           steps{
             sh(script: """
                 cd $WORKSPACE/src
-                docker build  -t "${CONTAINERREGISTRY}/webjet/kube-alert-bot":$BUILD_NUMBER .
+                docker build --build-arg REGISTRY=${CONTAINERREGISTRY} -t "${CONTAINERREGISTRY}/webjet/kube-alert-bot":$BUILD_NUMBER .
             """, returnStdout: true)
           }
       }
@@ -67,7 +69,7 @@ def call(Map params) {
           }
       }
 
-      stage('deploy-kubernetes-dev'){  // need update parallel for loop, config file name
+      stage('deploy-kubernetes-dev'){  // need update parallel for loop, config file name, service name, namespace
             steps{
                 parallel(
                     AU:{
