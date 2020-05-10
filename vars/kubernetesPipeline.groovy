@@ -55,6 +55,7 @@ def call(Map params) {
                 dockerImages.each{
                   echo it['imageName']
                   echo it['args']
+                  }
                 '''
               }
           
