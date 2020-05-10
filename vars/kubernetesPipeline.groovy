@@ -1,6 +1,6 @@
 import groovy.io.FileType
 
-def call() {
+def call(Map params) {
 
   // Requiered parameters
   /*
@@ -18,14 +18,16 @@ def call() {
   soapUISecrets     = params.soapUISecrets
   customChartName   = params.customChartName
   
-  continuousIntegrationImage = sonar.getSonarScannerImage(technology)*/
+  continuousIntegrationImage = sonar.getSonarScannerImage(technology)
+    repositoryBranch            = "master"
+  repositoryUrl               = "https://github.com/Webjet/Packages-Web.git"
+  */
 
 
   repositoryBranch            = params.repositoryBranch
   repositoryUrl               = params.repositoryUrl
 
-  repositoryBranch            = "master"
-  repositoryUrl               = "https://github.com/Webjet/Packages-Web.git"
+
   
   pipeline {
     agent any
