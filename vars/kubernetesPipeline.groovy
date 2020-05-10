@@ -60,9 +60,11 @@ def call(Map params) {
       }
 
       stage('push image') { // need update, image name
+          steps{
             sh(script: """
                 docker push "${CONTAINERREGISTRY}/webjet/kube-alert-bot:${BUILD_NUMBER}"
             """, returnStdout: true)
+          }
       }
 
       stage('deploy-kubernetes-dev'){  // need update parallel for loop, config file name
