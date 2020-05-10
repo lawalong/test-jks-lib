@@ -41,6 +41,7 @@ def call(Map params) {
         def WORKSPACE=pwd()
     }
     stages{
+      
       stage('checkout') {
           steps{
               checkout([$class: 'GitSCM', branches: [[name: '*/'+repositoryBranch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'f136133b-0c9f-4d5b-ba68-6d9d1fab21b6', url: repositoryUrl]]])
@@ -64,8 +65,8 @@ def call(Map params) {
                 cd $WORKSPACE/${dockerFilePath}
 
                 dockerImages.each{
-                  echo "p1=${it[1]}"
-                  echo "p2=${it[0]}" 
+                  echo "111sss"
+                  
                 }
 
                 
