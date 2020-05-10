@@ -62,7 +62,7 @@ def call(Map params) {
                 dockerImages.each{
                   echo "123 ${it['args']}"
 
-                  dockerUtils.buildImage(it['imageName'],it['args'])
+                  dockerUtils.buildImage(it['imageName'],it['args'],dockerFilePath)
                 }
             }
             
