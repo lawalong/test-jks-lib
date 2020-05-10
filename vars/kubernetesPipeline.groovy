@@ -57,7 +57,7 @@ def call(Map params) {
                   echo it['args']
                 '''
               }
-          }
+          
       }
       
       stage('build docker image') { // need update, for, image name
@@ -71,6 +71,7 @@ def call(Map params) {
             
           }
       }
+    
 
 /*
 docker build ${it[1]} -t "${CONTAINERREGISTRY}/webjet/${it[0]}":$BUILD_NUMBER .
