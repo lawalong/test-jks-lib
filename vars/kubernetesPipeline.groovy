@@ -26,7 +26,7 @@ def call(Map params) {
 
   repositoryBranch            = params.repositoryBranch
   repositoryUrl               = params.repositoryUrl
-  dockerFilePath
+  dockerFilePath              = params.dockerFilePath
 
 
 
@@ -55,7 +55,7 @@ def call(Map params) {
       stage('build docker image') { // need update, for, image name
           steps{
             sh(script: """
-                cd $WORKSPACE/src
+                cd $WORKSPACE/${dockerFilePath}
                 docker build --build-arg REGISTRY=${CONTAINERREGISTRY} -t "${CONTAINERREGISTRY}/webjet/kube-alert-bot":$BUILD_NUMBER .
             """, returnStdout: true)
           }
