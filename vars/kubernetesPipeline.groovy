@@ -63,6 +63,7 @@ def call(Map params) {
                   echo "123 ${it['args']}"
 
                   dockerUtils.buildImage(it['imageName'],it['args'],dockerFilePath)
+
                 }
             }
             

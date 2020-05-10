@@ -4,9 +4,9 @@ echo "xxx world hello"
 
 
 def buildImage(imageName,args,dockerFilePath) {
-                    sh(script: """
+                  sh(script: """
                   cd $WORKSPACE/${dockerFilePath}
-                  docker build --build-arg REGISTRY=containerregistrydev.azurecr.io -t "${CONTAINERREGISTRY}/webjet/alertbot":$BUILD_NUMBER .
+                  docker build ${args} -t "${CONTAINERREGISTRY}/webjet/${imageName}}":$BUILD_NUMBER .
                         """, returnStdout: true)
 
 
