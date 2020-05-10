@@ -57,10 +57,11 @@ def call(Map params) {
       
       stage('build docker image') { // need update, for, image name
           steps{
-            sh 'cd $WORKSPACE/${dockerFilePath}'
+            
             script{                
                 dockerImages.each{
-                  echo "${it['args']}"
+                  echo "123 ${it['args']}"
+                  sh 'cd $WORKSPACE/${dockerFilePath}'
                   sh 'docker build --build-arg REGISTRY=containerregistrydev.azurecr.io -t "${CONTAINERREGISTRY}/webjet/alertbot":$BUILD_NUMBER .'
                 }
             }
