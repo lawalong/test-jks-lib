@@ -52,13 +52,13 @@ def call(Map params) {
           steps{
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
               script{
-                forTest.each{
-                  testt.pt("${it}")
+                dockerImages.each{
+                  echo "111sss"
                 }
               }
           }
       }
-      
+  /*    
       stage('build docker image') { // need update, for, image name
           steps{
             sh(script: """
@@ -71,9 +71,10 @@ def call(Map params) {
 
                 
             """, returnStdout: true)
+            
           }
       }
-/*
+
 
 docker build ${it[1]} -t "${CONTAINERREGISTRY}/webjet/${it[0]}":$BUILD_NUMBER .
 
