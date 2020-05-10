@@ -50,8 +50,10 @@ def call(Map params) {
       stage('loging into container registry') {
           steps{
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
-              forTest.eahc{
-                echo "${it}"
+              script{
+                forTest.each{
+                  echo "${it}"
+                }
               }
           }
       }
