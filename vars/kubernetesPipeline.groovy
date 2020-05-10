@@ -1,6 +1,6 @@
 import groovy.io.FileType
 
-def call(Map params) {
+def call() {
 
   // Requiered parameters
   /*
@@ -23,6 +23,9 @@ def call(Map params) {
 
   repositoryBranch            = params.repositoryBranch
   repositoryUrl               = params.repositoryUrl
+
+  repositoryBranch            = "master"
+  repositoryUrl               = "https://github.com/Webjet/Packages-Web.git"
   
   pipeline {
     agent any
