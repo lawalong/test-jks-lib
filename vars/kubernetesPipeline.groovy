@@ -27,7 +27,8 @@ def call(Map params) {
   repositoryBranch            = params.repositoryBranch
   repositoryUrl               = params.repositoryUrl
   dockerFilePath              = params.dockerFilePath
-
+  dockerImageName             = params.dockerImageName
+  forTest = ["1","2","3","ab"]
 
 
   
@@ -49,6 +50,9 @@ def call(Map params) {
       stage('loging into container registry') {
           steps{
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
+              forTest.eahc{
+                echo "${it}"
+              }
           }
       }
       
@@ -56,7 +60,7 @@ def call(Map params) {
           steps{
             sh(script: """
                 cd $WORKSPACE/${dockerFilePath}
-                docker build --build-arg REGISTRY=${CONTAINERREGISTRY} -t "${CONTAINERREGISTRY}/webjet/kube-alert-bot":$BUILD_NUMBER .
+                docker build --build-arg REGISTRY=${CONTAINERREGISTRY} -t "${CONTAINERREGISTRY}/webjet/${dockerImageName}":$BUILD_NUMBER .
             """, returnStdout: true)
           }
       }
@@ -64,7 +68,7 @@ def call(Map params) {
       stage('push image') { // need update, image name
           steps{
             sh(script: """
-                docker push "${CONTAINERREGISTRY}/webjet/kube-alert-bot:${BUILD_NUMBER}"
+                docker push "${CONTAINERREGISTRY}/webjet/${dockerImageName}:${BUILD_NUMBER}"
             """, returnStdout: true)
           }
       }
