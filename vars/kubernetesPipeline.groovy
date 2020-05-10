@@ -51,20 +51,19 @@ def call(Map params) {
       stage('loging into container registry') {
           steps{
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
-              script{
+              sh '''
                 dockerImages.each{
                   echo it['imageName']
                   echo it['args']
-                }
+                '''
               }
           }
       }
       
       stage('build docker image') { // need update, for, image name
           steps{
-
-            script{
-                cd $WORKSPACE/${dockerFilePath}
+            sh 'cd $WORKSPACE/${dockerFilePath}'
+            script{                
                 dockerImages.each{
                   echo ${it['args']}
                 }
