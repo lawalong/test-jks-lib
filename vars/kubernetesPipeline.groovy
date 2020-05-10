@@ -53,7 +53,8 @@ def call(Map params) {
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
               script{
                 dockerImages.each{
-                  echo "111sss"
+                  echo it[0]
+                  echo it[1]
                 }
               }
           }
