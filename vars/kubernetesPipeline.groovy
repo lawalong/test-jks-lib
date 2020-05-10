@@ -59,24 +59,21 @@ def call(Map params) {
               }
           }
       }
-  /*    
+      
       stage('build docker image') { // need update, for, image name
           steps{
-            sh(script: """
+
+            script{
                 cd $WORKSPACE/${dockerFilePath}
-
                 dockerImages.each{
-                  echo "111sss"
-                  
+                  docker build it['args'] -t "${CONTAINERREGISTRY}/webjet/it['imageName']":$BUILD_NUMBER .
                 }
-
-                
-            """, returnStdout: true)
+            }
             
           }
       }
 
-
+/*
 docker build ${it[1]} -t "${CONTAINERREGISTRY}/webjet/${it[0]}":$BUILD_NUMBER .
 
       stage('push image') { // need update, image name
