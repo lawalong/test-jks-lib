@@ -66,7 +66,7 @@ def call(Map params) {
             script{
                 cd $WORKSPACE/${dockerFilePath}
                 dockerImages.each{
-                  docker build it['args'] -t "${CONTAINERREGISTRY}/webjet/it['imageName']":$BUILD_NUMBER .
+                  echo ${it['args']}
                 }
             }
             
@@ -75,6 +75,7 @@ def call(Map params) {
 
 /*
 docker build ${it[1]} -t "${CONTAINERREGISTRY}/webjet/${it[0]}":$BUILD_NUMBER .
+docker build it['args'] -t "${CONTAINERREGISTRY}/webjet/it['imageName']":$BUILD_NUMBER .
 
       stage('push image') { // need update, image name
           steps{
