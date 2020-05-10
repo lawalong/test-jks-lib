@@ -27,7 +27,7 @@ def call(Map params) {
   repositoryBranch            = params.repositoryBranch
   repositoryUrl               = params.repositoryUrl
   dockerFilePath              = params.dockerFilePath
-  dockerImageName             = params.dockerImageName
+  dockerImages                = params.dockerImages
   forTest = ["1","2","3","ab"]
 
 
@@ -62,7 +62,12 @@ def call(Map params) {
           steps{
             sh(script: """
                 cd $WORKSPACE/${dockerFilePath}
-                docker build --build-arg REGISTRY=${CONTAINERREGISTRY} -t "${CONTAINERREGISTRY}/webjet/${dockerImageName}":$BUILD_NUMBER .
+
+                dockerImages.each{
+                  docker build ${it[1]} -t "${CONTAINERREGISTRY}/webjet/${it[0]}":$BUILD_NUMBER .
+                }
+
+                
             """, returnStdout: true)
           }
       }
