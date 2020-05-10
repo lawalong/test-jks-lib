@@ -52,7 +52,7 @@ def call(Map params) {
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
               script{
                 forTest.each{
-                  echo "${it}"
+                  testt.pt("${it}")
                 }
               }
           }

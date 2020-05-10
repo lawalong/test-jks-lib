@@ -2,6 +2,6 @@ def call(String str) {
     echo "hello world tt + ${str}"
 }
 
-def saydiff() {
-    echo "xxx world hello"
+def pt(String str) {
+    echo "pt!! + ${str}"
 }
