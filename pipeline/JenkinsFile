@@ -15,9 +15,14 @@
 
 
     }
-}*/
+}
 testt()
 
 script{
     dockerUtils.ttcall()
+}*/
+
+kubernetesPipeline{
+    repositoryBranch : "master"
+    repositoryUrl    : "https://github.com/Webjet/Packages-Web.git"
 }
