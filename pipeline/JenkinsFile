@@ -21,5 +21,10 @@ testt()
 script{
     dockerUtils.ttcall()
 }*/
-testt()
+
+libraries{
+        lib('platform-team-shared-libs')
+}
+
+testt("hehe")
 kubernetesPipeline()
