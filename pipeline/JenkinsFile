@@ -23,6 +23,7 @@ script{
 }*/
 
 
-@Library('platform-team-shared-libs')
+
+@Library(value="platform-team-shared-libs@master")
 testt()
 kubernetesPipeline()
