@@ -21,9 +21,6 @@ testt()
 script{
     dockerUtils.ttcall()
 }*/
-
-
-
-@Library(value="platform-team-shared-libs@master")
+@Library('platform-team-shared-libs')_
 testt()
 kubernetesPipeline()
