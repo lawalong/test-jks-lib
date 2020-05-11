@@ -7,13 +7,13 @@ def deploy(region,environment,nameSpace,appName) {
     echo url
 
 
-                                response=$(curl -s -X POST "$url" \
+    curl -s -X POST "$url" \
                             --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
                             -H 'Content-Type: application/yaml' \
                             -H 'Expect:' \
-                            -D -)
+                            -D -
 
-                            echo "$response"
+
     '''
 
 
