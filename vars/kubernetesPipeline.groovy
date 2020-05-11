@@ -105,12 +105,11 @@ def call(Map params) {
 
       stage('deploy-kubernetes-prod'){  
             steps{
-              if(${DEPLOY_TO_PROD} == true){
                 parallel(
 
                     AU:{
                       script{
-                       if(deployRegions['AU']){
+                       if(deployRegions['AU'] && ${DEPLOY_TO_PROD} == true){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
                          kubebotUtils.deploy("wjau",'dev',nameSpace,appName)
                        }
@@ -118,13 +117,13 @@ def call(Map params) {
                     },
                     NZ:{
                       script{
-                       if(deployRegions['NZ']){
+                       if(deployRegions['NZ'] && ${DEPLOY_TO_PROD} == true){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
                          kubebotUtils.deploy("wjnz",'dev',nameSpace,appName)
                        }              
                       }
                     }
-                )}
+                )
             } // steps
       }  
 
