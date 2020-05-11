@@ -87,19 +87,44 @@ def call(Map params) {
                       script{
                        if(deployRegions['AU']){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
-                         kubebotUtils.deploy("AU",'DEV',nameSpace,appName)
+                         kubebotUtils.deploy("wjau",'dev',nameSpace,appName)
                        }
                       }     
-
-
-
                     },
                     NZ:{
-                      echo "NZZZZ"                    
+                      script{
+                       if(deployRegions['NZ']){
+                         echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
+                         kubebotUtils.deploy("wjnz",'dev',nameSpace,appName)
+                       }              
                     }
                 )
             } // steps
       }    
+
+      stage('deploy-kubernetes-prod'){  
+            steps{
+              if(${DEPLOY_TO_PROD} == true)
+                parallel(
+
+                    AU:{
+                      script{
+                       if(deployRegions['AU']){
+                         echo "Deploying ${appName}-wjau to ${nameSpace} ..."
+                         kubebotUtils.deploy("wjau",'dev',nameSpace,appName)
+                       }
+                      }     
+                    },
+                    NZ:{
+                      script{
+                       if(deployRegions['NZ']){
+                         echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
+                         kubebotUtils.deploy("wjnz",'dev',nameSpace,appName)
+                       }              
+                    }
+                )}
+            } // steps
+      }  
 
 
     }
