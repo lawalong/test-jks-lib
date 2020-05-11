@@ -1,7 +1,8 @@
 def deploy(region,environment,nameSpace,appName) {
     echo "333 Deploying ${appName}-wjau to ${nameSpace} ..."
-    sh '''
-    echo "444 Deploying ${appName}-wjau to ${nameSpace} ..."
+
+                     sh(script: """
+    echo "4442 Deploying ${appName}-wjau to ${nameSpace} ..."
           response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjau?registry=$CONTAINERREGISTRY&repository=webjet" \
           --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
           -H 'Content-Type: application/yaml' \
@@ -13,7 +14,6 @@ def deploy(region,environment,nameSpace,appName) {
           else
               echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
               exit 1
-          fi        
-    '''  
-    
+          fi   
+                        """, returnStdout: true) 
 }
