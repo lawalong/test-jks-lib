@@ -8,7 +8,7 @@ def deploy(region,environment,nameSpace,appName) {
     '''
 
     sh(script: """
-                            response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjnz/${BUILD_NUMBER}?registry=${CONTAINERREGISTRY}")
+
                         
                         
                         """, returnStdout: true)
