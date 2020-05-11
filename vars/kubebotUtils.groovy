@@ -1,22 +1,20 @@
 def deploy(region,environment,nameSpace,appName) {
-    echo "333 Deploying ${appName}-wjau to ${nameSpace} ..."
-    url = "http://kubebot.default/deploy/dev/${nameSpace}/${appName}/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet"
-    db = "@$WORKSPACE/pipeline/deploy.yaml"
 
-echo db;
-    sh '''
+                        sh '''
 
-
-    rep=$(curl -s -X POST '''+url+''' \
-    --data-binary "@/home/jenkins/workspace/platform-team/test-deploy/pipeline/deploy.yaml" \
+                            response=$(curl -s -X POST "http://kubebot.default/deploy/dev/bots/'''+appName+'''/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
+                            --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
                             -H 'Content-Type: application/yaml' \
                             -H 'Expect:' \
-                            -D -
-    )
-
-    echo "$rep"
-
-    '''
+                            -D -)
+                            http_status=$(echo $response | grep HTTP | awk '{print $2}')
+                            if [ $http_status = 200 ]; then
+                                echo "Deployed"
+                            else
+                                echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
+                                exit 1
+                            fi      
+                        '''   
 
 
 }
