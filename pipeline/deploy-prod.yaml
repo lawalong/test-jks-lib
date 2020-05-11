@@ -1,0 +1,16 @@
+Kind: kubebot.values/v1
+deployment:
+  image: kube-alert-bot
+  port: 10010
+  replicas: 1
+
+configmap:
+  path: /app/Configs
+  files:
+    config.json: |
+      {
+        "MicrosoftTeamsURL" : "https://outlook.office.com/webhook/d8459a62-8fe7-44cb-9401-84cdcce3803e@5de0e68c-0afd-4a67-b089-31f168aa4ca0/IncomingWebhook/9bcc8d82cdd74def8c3aa99294eb92bf/19b1146e-43e3-48c5-a9bf-a4cfb3d03c52"
+      }
+
+
+
