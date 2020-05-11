@@ -84,14 +84,16 @@ def call(Map params) {
             steps{
                 parallel(
                     AU:{
+                      echo "111 Deploying ${appName}-wjau to ${nameSpace} ..."
                       script{
                         if(deployRegions['AU']){
+                          echo "222 Deploying ${appName}-wjau to ${nameSpace} ..."
                           kubebotUtils.deploy("AU",'DEV',nameSpace,appName)
                         }
                       }   
                     },
                     NZ:{
-                        sh '''
+                       /* sh '''
                         if [${deployRegions['NZ']} = true]; then
                             response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjnz/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
                             --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
@@ -108,7 +110,7 @@ def call(Map params) {
                         else
                             echo "NZ DEV = false"
                         fi                             
-                        '''                           
+                        '''   */                        
                     }
                 )
             }
