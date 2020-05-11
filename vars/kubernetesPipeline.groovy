@@ -106,7 +106,7 @@ def call(Map params) {
 
   /*  
   
-                         /* sh '''
+                         sh '''
                         if [${deployRegions['NZ']} = true]; then
                             response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjnz/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
                             --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
@@ -123,7 +123,7 @@ def call(Map params) {
                         else
                             echo "NZ DEV = false"
                         fi                             
-                        '''   */   
+         
   
   
   stages {
