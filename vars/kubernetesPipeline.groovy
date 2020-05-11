@@ -86,48 +86,48 @@ def call(Map params) {
                     AU:{
                         echo "appname ${appName}"
 
-                              sh '''
-                              if [deployRegions['AU'] = true]; then
-                              echo "appname2 ${appName}"
-                                  echo "Deploying ${appName}-wjau to ${nameSpace} ..."
-                                  response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjau?registry=$CONTAINERREGISTRY&repository=webjet" \
-                                  --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
-                                  -H 'Content-Type: application/yaml' \
-                                  -H 'Expect:' \
-                                  -D -)
-                                  http_status=$(echo $response | grep HTTP | awk '{print $2}')
-                                  if [ $http_status = 200 ]; then
-                                      echo "Deployed"
-                                  else
-                                      echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
-                                      exit 1
-                                  fi
-                              else
-                                  echo "AU DEV = false"
-                              fi         
-                            '''     
+                        sh '''
+                                                echo "appname2 ${appName}"
+
+                        if [${deployRegions['AU']} = true]; then
+                        echo "appname2 ${appName}"
+                            echo "Deploying ${appName}-wjau to ${nameSpace} ..."
+                            response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjau?registry=$CONTAINERREGISTRY&repository=webjet" \
+                            --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
+                            -H 'Content-Type: application/yaml' \
+                            -H 'Expect:' \
+                            -D -)
+                            http_status=$(echo $response | grep HTTP | awk '{print $2}')
+                            if [ $http_status = 200 ]; then
+                                echo "Deployed"
+                            else
+                                echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
+                                exit 1
+                            fi
+                        else
+                            echo "AU DEV = false"
+                        fi         
+                      '''     
                     },
                     NZ:{
-                            sh '''
-                            if [deployRegions['NZ'] = true]; then
-                                response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjnz/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
-                                --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
-                                -H 'Content-Type: application/yaml' \
-                                -H 'Expect:' \
-                                -D -)
-                                http_status=$(echo $response | grep HTTP | awk '{print $2}')
-                                if [ $http_status = 200 ]; then
-                                    echo "Deployed"
-                                else
-                                    echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
-                                    exit 1
-                                fi      
+                        sh '''
+                        if [${deployRegions['NZ']} = true]; then
+                            response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjnz/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
+                            --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
+                            -H 'Content-Type: application/yaml' \
+                            -H 'Expect:' \
+                            -D -)
+                            http_status=$(echo $response | grep HTTP | awk '{print $2}')
+                            if [ $http_status = 200 ]; then
+                                echo "Deployed"
                             else
-                                echo "NZ DEV = false"
-                            fi                             
-                            '''   
-
-                        
+                                echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
+                                exit 1
+                            fi      
+                        else
+                            echo "NZ DEV = false"
+                        fi                             
+                        '''                           
                     }
                 )
             }
