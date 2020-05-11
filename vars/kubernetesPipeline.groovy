@@ -84,10 +84,11 @@ def call(Map params) {
             steps{
                 parallel(
                     AU:{
-                        
+                        echo "appname ${appName}"
                         script{
                           if(deployRegions['AU']){
                               sh '''
+                              echo "appname2 ${appName}"
                                   echo "Deploying ${appName}-wjau to ${nameSpace} ..."
                                   response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjau?registry=$CONTAINERREGISTRY&repository=webjet" \
                                   --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
