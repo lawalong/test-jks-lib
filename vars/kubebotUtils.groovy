@@ -1,9 +1,9 @@
-def deploy(region,environment,nameSpace,appName) {
+def deploy(region,environment,configYaml,nameSpace,appName) {
 
                         sh '''
 
                             response=$(curl -s -X POST "http://kubebot.default/deploy/'''+environment+'''/'''+nameSpace+'''/'''+appName+'''-'''+region+'''/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
-                            --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
+                            --data-binary "@$WORKSPACE/pipeline/'''+configYaml+'''" \
                             -H 'Content-Type: application/yaml' \
                             -H 'Expect:' \
                             -D -)

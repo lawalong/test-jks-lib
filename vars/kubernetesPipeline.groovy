@@ -87,7 +87,7 @@ def call(Map params) {
                       script{
                        if(deployRegions['AU']){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjau",'dev',nameSpace,appName)
+                         kubebotUtils.deploy("wjau",'dev','deploy.yaml',nameSpace,appName)
                        }
                       }     
                     },
@@ -95,7 +95,7 @@ def call(Map params) {
                       script{
                        if(deployRegions['NZ']){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjnz",'dev',nameSpace,appName)
+                         kubebotUtils.deploy("wjnz",'dev','deploy.yaml',nameSpace,appName)
                        }              
                       }
                     }
@@ -109,17 +109,17 @@ def call(Map params) {
 
                     AU:{
                       script{
-                       if(deployRegions['AU'] && ${DEPLOY_TO_PROD} == true){
+                       if(deployRegions['AU'] && DEPLOY_TO_PROD == true){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjau",'dev',nameSpace,appName)
+                         kubebotUtils.deploy("wjau",'dev','deploy-prod.yaml',nameSpace,appName)
                        }
                       }     
                     },
                     NZ:{
                       script{
-                       if(deployRegions['NZ'] && ${DEPLOY_TO_PROD} == true){
+                       if(deployRegions['NZ'] && DEPLOY_TO_PROD == true){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjnz",'dev',nameSpace,appName)
+                         kubebotUtils.deploy("wjnz",'dev','deploy-prod.yaml'nameSpace,appName)
                        }              
                       }
                     }
