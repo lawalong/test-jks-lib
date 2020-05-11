@@ -93,6 +93,7 @@ def call(Map params) {
                       }   
                     },
                     NZ:{
+                      echo "NZZZZ"
                        /* sh '''
                         if [${deployRegions['NZ']} = true]; then
                             response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjnz/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
