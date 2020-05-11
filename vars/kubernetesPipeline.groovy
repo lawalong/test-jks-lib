@@ -91,8 +91,10 @@ def call(Map params) {
                       //    kubebotUtils.deploy("AU",'DEV',nameSpace,appName)
                       //  }
                       //}  
+                      url = "http://kubebot.default/deploy/dev/${nameSpace}/${appName}/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet"
                         sh '''
-                            response=$(curl -s -X POST "http://kubebot.default/deploy/dev/bots/alertbot/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
+                            echo "dd '''+url+'''"
+                            response=$(curl -s -X POST "'''+url+'''" \
                             --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
                             -H 'Content-Type: application/yaml' \
                             -H 'Expect:' \
