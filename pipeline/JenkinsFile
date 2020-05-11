@@ -1,5 +1,5 @@
 
-@Library('platform-team-shared-libs')_
+@Library('platform-team-shared-libs-dev')_
 // ** Deploy to Pro Flag: DEPLOY_TO_PROD
 
 kubernetesPipeline(
@@ -9,7 +9,7 @@ kubernetesPipeline(
   repositoryBranch            : "master",
   repositoryUrl               : "https://github.com/Webjet/kube-alert-bot.git",
   dockerFilePath              : "src",
-  dockerImages                : [[imageName: "kube-alert-bot", args: ""],[imageName: "kube-alert-bot", args: ""]],
+  dockerImages                : [[imageName: "kube-alert-bot", args: ""]],
   deployRegions               : [AU: true, NZ: false]
 
 )
