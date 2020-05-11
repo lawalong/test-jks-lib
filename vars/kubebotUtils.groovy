@@ -3,12 +3,12 @@ def deploy(region,environment,nameSpace,appName) {
     url = "http://kubebot.default/deploy/dev/${nameSpace}/${appName}/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet"
     db = "@$WORKSPACE/pipeline/deploy.yaml"
 
-
+echo db;
     sh '''
 
 
     rep=$(curl -s -X POST '''+url+''' \
-    --data-binary '''+db+''' \
+    --data-binary "sad" \
                             -H 'Content-Type: application/yaml' \
                             -H 'Expect:' \
                             -D -
