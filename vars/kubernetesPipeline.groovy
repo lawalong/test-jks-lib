@@ -76,7 +76,7 @@ def call(Map params) {
                   dockerUtils.pushImage(it['imageName'])
                 }
             }
-            echo ${DEPLOY_TO_PROD}
+            echo "${DEPLOY_TO_PROD}"
           }
       }
 
