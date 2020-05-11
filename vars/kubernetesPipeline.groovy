@@ -91,15 +91,15 @@ def call(Map params) {
                         echo "flag2=" + DEPLOY_TO_PROD;
                         echo "flag3=" + deployRegions['AU'];
                        if(deployRegions['AU'] == true && DEPLOY_TO_PROD.equals("true")){
-                         echo "Deploying ${appName}-wjau to ${nameSpace} ..."
+                         echo "Deploying ${appName}-wjau to ${nameSpace} Production..."
                        //  kubebotUtils.deploy("wjau",'prod','kube-wjau-prod.yaml',nameSpace,appName)
                        }
                       }     
                     },
                     NZ:{
                       script{
-                       if(deployRegions['NZ'] == true && DEPLOY_TO_PROD == true){
-                         echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
+                       if(deployRegions['NZ'] == true && DEPLOY_TO_PROD.toBoolean() == true){
+                         echo "Deploying ${appName}-wjnz to ${nameSpace} Production..."
                        //  kubebotUtils.deploy("wjnz",'prod','kube-wjau-prod.yaml',nameSpace,appName)
                        }              
                       }
