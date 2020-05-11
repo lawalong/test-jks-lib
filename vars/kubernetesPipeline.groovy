@@ -90,7 +90,7 @@ def call(Map params) {
                       script{
                         echo "flag2=" + DEPLOY_TO_PROD;
                         echo "flag3=" + deployRegions['AU'];
-                       if(deployRegions['AU'] == true && DEPLOY_TO_PROD == true){
+                       if(deployRegions['AU'] == true && DEPLOY_TO_PROD.equals("true")){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
                        //  kubebotUtils.deploy("wjau",'prod','kube-wjau-prod.yaml',nameSpace,appName)
                        }
