@@ -57,15 +57,16 @@ def call(Map params) {
             }
           }
       }
-
+*/
       stage('deploy-kubernetes-dev'){  
             steps{
                 parallel(
                     AU:{
                       script{
+                        echo deployRegions['AU'];
                        if(deployRegions['AU'] == true){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjau",'dev','kube-wjau-dev',nameSpace,appName)
+                   //      kubebotUtils.deploy("wjau",'dev','kube-wjau-dev',nameSpace,appName)
                        }
                       }     
                     },
@@ -73,13 +74,13 @@ def call(Map params) {
                       script{
                        if(deployRegions['NZ'] == true){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjnz",'dev','kube-wjnz-dev.yaml',nameSpace,appName)
+                     //    kubebotUtils.deploy("wjnz",'dev','kube-wjnz-dev.yaml',nameSpace,appName)
                        }              
                       }
                     }
                 )
             } // steps
-      }    */
+      }    
 
       stage('deploy-kubernetes-prod'){  
             steps{
@@ -88,6 +89,7 @@ def call(Map params) {
                     AU:{
                       script{
                         echo DEPLOY_TO_PROD;
+                        echo deployRegions['AU'];
                        if(deployRegions['AU'] == true && DEPLOY_TO_PROD == true){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
                        //  kubebotUtils.deploy("wjau",'prod','kube-wjau-prod.yaml',nameSpace,appName)
