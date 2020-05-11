@@ -23,11 +23,13 @@ def call(Map params) {
   repositoryUrl               = "https://github.com/Webjet/Packages-Web.git"
   */
 
-
+  appName                     = params.appName
+  nameSpace                   = params.nameSpace
   repositoryBranch            = params.repositoryBranch
   repositoryUrl               = params.repositoryUrl
   dockerFilePath              = params.dockerFilePath
   dockerImages                = params.dockerImages
+  deployRegions               = params.deployRegions
   forTest = ["1","2","3","ab"]
 
 
@@ -55,61 +57,74 @@ def call(Map params) {
           }
       }
       
-      stage('build docker image') { // need update, for, image name
+      stage('build docker image') { 
           steps{
             
             script{                
                 dockerImages.each{
-
                   dockerUtils.buildImage(it['imageName'],it['args'],dockerFilePath)
-                  dockerUtils.pushImage(it['imageName'])
-
                 }
             }
             
           }
       }
     
-
-/*
-docker build ${it[1]} -t "${CONTAINERREGISTRY}/webjet/${it[0]}":$BUILD_NUMBER .
-docker build it['args'] -t "${CONTAINERREGISTRY}/webjet/it['imageName']":$BUILD_NUMBER .
-
-      stage('push image') { // need update, image name
+      stage('push image') { 
           steps{
-            sh(script: """
-                docker push "${CONTAINERREGISTRY}/webjet/${dockerImageName}:${BUILD_NUMBER}"
-            """, returnStdout: true)
+            script{                
+                dockerImages.each{
+                  dockerUtils.pushImage(it['imageName'])
+                }
+            }
           }
       }
 
-      stage('deploy-kubernetes-dev'){  // need update parallel for loop, config file name, service name, namespace
+      stage('deploy-kubernetes-dev'){  
             steps{
                 parallel(
                     AU:{
-                        sh '''
-                            response=$(curl -s -X POST "http://kubebot.default/deploy/dev/bots/alertbot/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
-                            --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
-                            -H 'Content-Type: application/yaml' \
-                            -H 'Expect:' \
-                            -D -)
-                            http_status=$(echo $response | grep HTTP | awk '{print $2}')
-                            if [ $http_status = 200 ]; then
-                                echo "Deployed"
-                            else
-                                echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
-                                exit 1
-                            fi      
-                        '''   
+                        if(deployRegions['AU']){
+                          sh '''
+                              response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${nameSpace}/${appName}-wjau?registry=$CONTAINERREGISTRY&repository=webjet" \
+                              --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
+                              -H 'Content-Type: application/yaml' \
+                              -H 'Expect:' \
+                              -D -)
+                              http_status=$(echo $response | grep HTTP | awk '{print $2}')
+                              if [ $http_status = 200 ]; then
+                                  echo "Deployed"
+                              else
+                                  echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
+                                  exit 1
+                              fi      
+                          '''   
+                        }else{
+                          echo "AU DEV = false"
+                        }
                     },
                     NZ:{
-                        sh '''
-                            echo "test path2"    
-                        ''' 
+                        if(deployRegions['NZ']){
+                          sh '''
+                              response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjnz/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
+                              --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
+                              -H 'Content-Type: application/yaml' \
+                              -H 'Expect:' \
+                              -D -)
+                              http_status=$(echo $response | grep HTTP | awk '{print $2}')
+                              if [ $http_status = 200 ]; then
+                                  echo "Deployed"
+                              else
+                                  echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
+                                  exit 1
+                              fi      
+                          '''   
+                        }else{
+                          echo "NZ DEV = false"  
+                        }
                     }
                 )
             }
-      }*/     
+      }    
 
 
     }
