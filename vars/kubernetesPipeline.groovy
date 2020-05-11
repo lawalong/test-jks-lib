@@ -97,6 +97,7 @@ def call(Map params) {
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
                          kubebotUtils.deploy("wjnz",'dev',nameSpace,appName)
                        }              
+                      }
                     }
                 )
             } // steps
@@ -121,6 +122,7 @@ def call(Map params) {
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
                          kubebotUtils.deploy("wjnz",'dev',nameSpace,appName)
                        }              
+                      }
                     }
                 )}
             } // steps
