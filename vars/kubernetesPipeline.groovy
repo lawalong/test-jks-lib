@@ -88,7 +88,7 @@ def call(Map params) {
                     AU:{
                       script{
                         echo DEPLOY_TO_PROD;
-                       if(deployRegions['AU'] && DEPLOY_TO_PROD == true){
+                       if(deployRegions['AU'] == true && DEPLOY_TO_PROD == true){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
                        //  kubebotUtils.deploy("wjau",'prod','kube-wjau-prod.yaml',nameSpace,appName)
                        }
@@ -96,7 +96,7 @@ def call(Map params) {
                     },
                     NZ:{
                       script{
-                       if(deployRegions['NZ'] && DEPLOY_TO_PROD == true){
+                       if(deployRegions['NZ'] == true && DEPLOY_TO_PROD == true){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
                        //  kubebotUtils.deploy("wjnz",'prod','kube-wjau-prod.yaml',nameSpace,appName)
                        }              
