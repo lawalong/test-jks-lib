@@ -85,7 +85,7 @@ def call(Map params) {
                 parallel(
                     AU:{
                       script{
-                       if(deployRegions['AU']){
+                       if(deployRegions['AU'] == true){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
                          kubebotUtils.deploy("wjau",'dev','deploy.yaml',nameSpace,appName)
                        }
@@ -93,7 +93,7 @@ def call(Map params) {
                     },
                     NZ:{
                       script{
-                       if(deployRegions['NZ']){
+                       if(deployRegions['NZ'] == true){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
                          kubebotUtils.deploy("wjnz",'dev','deploy.yaml',nameSpace,appName)
                        }              
@@ -119,7 +119,7 @@ def call(Map params) {
                       script{
                        if(deployRegions['NZ'] && DEPLOY_TO_PROD == true){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjnz",'dev','deploy-prod.yaml'nameSpace,appName)
+                         kubebotUtils.deploy("wjnz",'dev','deploy-prod.yaml',nameSpace,appName)
                        }              
                       }
                     }
