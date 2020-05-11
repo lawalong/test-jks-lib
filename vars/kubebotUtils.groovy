@@ -8,7 +8,7 @@ echo db;
 
 
     rep=$(curl -s -X POST '''+url+''' \
-    --data-binary "sad" \
+    --data-binary "@/home/jenkins/workspace/platform-team/test-deploy/pipeline/deploy.yaml" \
                             -H 'Content-Type: application/yaml' \
                             -H 'Expect:' \
                             -D -
