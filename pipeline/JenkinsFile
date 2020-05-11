@@ -10,6 +10,6 @@ kubernetesPipeline(
   repositoryUrl               : "https://github.com/Webjet/kube-alert-bot.git",
   dockerFilePath              : "src",
   dockerImages                : [[imageName: "kube-alert-bot", args: ""],[imageName: "kube-alert-bot", args: ""]],
-  deployRegions               : [AU: true, NZ: true]
+  deployRegions               : [AU: true, NZ: false]
 
 )
