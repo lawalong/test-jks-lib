@@ -85,9 +85,9 @@ def call(Map params) {
                 parallel(
                     AU:{
                         echo "appname ${appName}"
-                        script{
-                          if(deployRegions['AU']){
+
                               sh '''
+                              if [deployRegions['AU'] = true]; then
                               echo "appname2 ${appName}"
                                   echo "Deploying ${appName}-wjau to ${nameSpace} ..."
                                   response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjau?registry=$CONTAINERREGISTRY&repository=webjet" \
@@ -101,20 +101,15 @@ def call(Map params) {
                                   else
                                       echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
                                       exit 1
-                                  fi         
+                                  fi
+                              else
+                                  echo "AU DEV = false"
+                              fi         
                             '''     
-                          }else{
-                            echo "AU DEV = false"
-                          }
-                        }
-
-
                     },
                     NZ:{
-                        script{
-                          if(deployRegions['NZ']){
                             sh '''
-                            
+                            if [deployRegions['NZ'] = true]; then
                                 response=$(curl -s -X POST "http://kubebot.default/deploy/dev/${nameSpace}/${appName}-wjnz/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet" \
                                 --data-binary "@$WORKSPACE/pipeline/deploy.yaml" \
                                 -H 'Content-Type: application/yaml' \
@@ -127,12 +122,12 @@ def call(Map params) {
                                     echo "Something went wrong with the deployment, query the Kb-Trace-Id in sumo for more details."
                                     exit 1
                                 fi      
-                            
+                            else
+                                echo "NZ DEV = false"
+                            fi                             
                             '''   
-                          }else{
-                            echo "NZ DEV = false"  
-                          }   
-                        }
+
+                        
                     }
                 )
             }
