@@ -3,7 +3,7 @@ def deploy(region,environment,nameSpace,appName) {
 
     sh '''
     echo \"4442 Deploying '''+appName+''' -wjau to '''+nameSpace+''' ...\"
-    local url = http://kubebot.default/deploy/dev/'''+nameSpace+'''/'''+appName+'''/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet
+     url = http://kubebot.default/deploy/dev/'''+nameSpace+'''/'''+appName+'''/${BUILD_NUMBER}?registry=$CONTAINERREGISTRY&repository=webjet
     echo url
 
 
