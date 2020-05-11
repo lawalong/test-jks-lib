@@ -1,7 +1,3 @@
-def call(String str) {
-    echo "hello world tt + ${str}"
-}
+def call(){
 
-def pt(String str) {
-    echo "pt!! + ${str}"
 }

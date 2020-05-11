@@ -3,26 +3,6 @@ import groovy.io.FileType
 def call(Map params) {
 
   // Requiered parameters
-  /*
-  appName           = params.appName
-  appProject        = params.appProject
-  appVersion        = params.appVersion
-  technology        = params.technology
-  unitTests         = params.unitTests
-  runSonarAnalysis  = params.runSonarAnalysis
-  devLocations      = params.devLocations
-  liveAutoDeploy    = params.liveAutoDeploy
-  liveLocations     = params.liveLocations
-  soapUI            = params.soapUI
-  soapUIScripts     = params.soapUIScripts
-  soapUISecrets     = params.soapUISecrets
-  customChartName   = params.customChartName
-  
-  continuousIntegrationImage = sonar.getSonarScannerImage(technology)
-    repositoryBranch            = "master"
-  repositoryUrl               = "https://github.com/Webjet/Packages-Web.git"
-  */
-
   appName                     = params.appName
   nameSpace                   = params.nameSpace
   repositoryBranch            = params.repositoryBranch
@@ -30,7 +10,6 @@ def call(Map params) {
   dockerFilePath              = params.dockerFilePath
   dockerImages                = params.dockerImages
   deployRegions               = params.deployRegions
-  forTest = ["1","2","3","ab"]
 
 
   
@@ -49,7 +28,7 @@ def call(Map params) {
               checkout([$class: 'GitSCM', branches: [[name: '*/'+repositoryBranch]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'f136133b-0c9f-4d5b-ba68-6d9d1fab21b6', url: repositoryUrl]]])
           }          
       }
-
+/*
       stage('loging into container registry') {
           steps{
               sh 'docker login -u $CONTAINERREGISTRYUSERNAME -p $CONTAINERREGISTRYPASSWORD $CONTAINERREGISTRY'
@@ -76,7 +55,6 @@ def call(Map params) {
                   dockerUtils.pushImage(it['imageName'])
                 }
             }
-            echo "${DEPLOY_TO_PROD}"
           }
       }
 
@@ -87,7 +65,7 @@ def call(Map params) {
                       script{
                        if(deployRegions['AU'] == true){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjau",'dev','deploy.yaml',nameSpace,appName)
+                         kubebotUtils.deploy("wjau",'dev','kube-wjau-dev',nameSpace,appName)
                        }
                       }     
                     },
@@ -95,13 +73,13 @@ def call(Map params) {
                       script{
                        if(deployRegions['NZ'] == true){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjnz",'dev','deploy.yaml',nameSpace,appName)
+                         kubebotUtils.deploy("wjnz",'dev','kube-wjnz-dev.yaml',nameSpace,appName)
                        }              
                       }
                     }
                 )
             } // steps
-      }    
+      }    */
 
       stage('deploy-kubernetes-prod'){  
             steps{
@@ -109,9 +87,10 @@ def call(Map params) {
 
                     AU:{
                       script{
+                        echo DEPLOY_TO_PROD;
                        if(deployRegions['AU'] && DEPLOY_TO_PROD == true){
                          echo "Deploying ${appName}-wjau to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjau",'dev','deploy-prod.yaml',nameSpace,appName)
+                       //  kubebotUtils.deploy("wjau",'prod','kube-wjau-prod.yaml',nameSpace,appName)
                        }
                       }     
                     },
@@ -119,7 +98,7 @@ def call(Map params) {
                       script{
                        if(deployRegions['NZ'] && DEPLOY_TO_PROD == true){
                          echo "Deploying ${appName}-wjnz to ${nameSpace} ..."
-                         kubebotUtils.deploy("wjnz",'dev','deploy-prod.yaml',nameSpace,appName)
+                       //  kubebotUtils.deploy("wjnz",'prod','kube-wjau-prod.yaml',nameSpace,appName)
                        }              
                       }
                     }

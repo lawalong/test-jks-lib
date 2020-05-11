@@ -1,8 +1,3 @@
-def ttcall() {
-echo "xxx world hello"
-}
-
-
 def buildImage(imageName,args,dockerFilePath) {
                   sh(script: """
                   cd $WORKSPACE/${dockerFilePath}
